@@ -1,0 +1,21 @@
+FROM registry.redhat.io/ubi9/openjdk-21-runtime
+
+#ENV DATA_DIR=/home/default/dbdata/data
+
+# Create directory for the CSV data
+#RUN mkdir -p ${DATA_DIR}
+
+# Set working directory for the application
+WORKDIR /app
+
+# Copy application JAR file into container
+COPY target/*-runner.jar /app/app.jar 
+
+# Copy CSV and JSON files to /dbdata/data
+#COPY src/main/resources/data/*.json src/main/resources/data/*.csv ${DATA_DIR}/ 
+
+# Expose the default Quarkus port (optional)
+EXPOSE 8080
+
+# Run the application
+CMD ["java", "-jar", "/app/app.jar"]
